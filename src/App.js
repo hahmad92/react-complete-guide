@@ -1,47 +1,28 @@
 import React from "react";
-import Header from "./components/Header/Header";
-import ResultTable from "./components/ResultTable/ResultTable";
+import AddUser from "./components/AddUser/AddUser";
+import Card from "./components/UI/Card";
+import UserList from "./components/UserList/UserList";
 import { useState } from "react";
-import ResultInput from "./components/ResultInput/ResultInput";
 function App() {
-  const [userInput, setUserInput] = useState(null);
-  const calculateHandler = (userInput) => {
-    setUserInput(userInput);
+  const [users, setUsers] = useState([]);
+
+  const addUserHandler = (user) => {
+    setUsers((prevState) => {
+      return [
+        ...prevState,
+        {
+          ...user,
+          id: Math.random().toString(),
+        },
+      ];
+    });
   };
 
-  const yearlyData = []; // per-year results
-  if (userInput) {
-    let currentSavings = +userInput.currentSavings;
-    const yearlyContribution = +userInput.yearlyContribution;
-    const expectedReturn = +userInput.expectedReturn / 100;
-    const duration = +userInput.duration;
-    for (let i = 0; i < duration; i++) {
-      const yearlyInterest = currentSavings * expectedReturn;
-      currentSavings += yearlyInterest + yearlyContribution;
-      yearlyData.push({
-        year: i + 1,
-        yearlyInterest: yearlyInterest,
-        savingsEndOfYear: currentSavings,
-        yearlyContribution: yearlyContribution,
-      });
-    }
-  }
   return (
     <div>
-      <Header />
+      <AddUser onAddUser={addUserHandler} />
 
-      <ResultInput onCalculate={calculateHandler} />
-
-      {!userInput && (
-        <p style={{ textAlign: "center" }}>No Investment Calculated Yet.</p>
-      )}
-
-      {userInput && (
-        <ResultTable
-          yearlyData={yearlyData}
-          initialInvestment={userInput.currentSavings}
-        />
-      )}
+      <UserList users={users}></UserList>
     </div>
   );
 }
