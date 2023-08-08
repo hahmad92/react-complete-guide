@@ -4,7 +4,7 @@ import { useContext } from "react";
 import classes from "./Navigation.module.css";
 import AuthContext from "../../store/auth-context";
 
-const Navigation = (props) => {
+const Navigation = () => {
   //We can use the useContext hook to get access to the context object
   const ctx = useContext(AuthContext);
 
@@ -23,7 +23,7 @@ const Navigation = (props) => {
         )}
         {ctx.isLoggedIn && (
           <li>
-            <button onClick={props.onLogout}>Logout</button>
+            <button onClick={ctx.onLogout}>Logout</button>
           </li>
         )}
       </ul>
