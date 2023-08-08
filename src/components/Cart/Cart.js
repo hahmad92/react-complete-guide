@@ -8,12 +8,15 @@ const Cart = (props) => {
   const cartCtx = useContext(CartContext);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+  const hasItems = cartCtx.items.length > 0;
 
   const onAddHandler = (item) => {
     cartCtx.addItem({ ...item, amount: 1 });
   };
 
-  const onRemoveHandler = (id) => {};
+  const onRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
   const cartItems = (
     <ul className={classes["cart-items"]}>
       {cartCtx.items.map((item) => (
@@ -39,7 +42,7 @@ const Cart = (props) => {
         <button className={classes["button--alt"]} onClick={props.onClose}>
           Close
         </button>
-        <button className={classes.button}>Order</button>
+        {hasItems && <button className={classes.button}>Order</button>}
       </div>
     </Modal>
   );
