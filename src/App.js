@@ -1,7 +1,12 @@
-import "./App.css";
+import UserFinder from "./components/UserFinder";
+import Users from "./components/Users";
 
 function App() {
-  return <h1>Let's get started!</h1>;
+  return (
+    <div>
+      <UserFinder />
+    </div>
+  );
 }
 
 export default App;
