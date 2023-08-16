@@ -1,7 +1,11 @@
-import "./App.css";
+import SimpleInput from './components/SimpleInput';
 
 function App() {
-  return <h1>Let's get started!</h1>;
+  return (
+    <div className="app">
+      <SimpleInput />
+    </div>
+  );
 }
 
 export default App;
